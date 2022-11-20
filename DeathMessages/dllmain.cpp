@@ -6,6 +6,15 @@ void PluginInit();
 
 Logger logger(PLUGIN_NAME);
 
+void CheckLangFile(){
+    if(!std::filesystem::exists("plugins/DeathMessages/language.json")){
+        logger.error("语言文件不存在！死亡信息无法显示！");
+    }
+    else{
+        PluginInit();
+    }
+}
+
 void CheckProtocolVersion()
 {
 
@@ -49,6 +58,6 @@ extern "C"
     {
         std::ios::sync_with_stdio(false);
         CheckProtocolVersion();
-        PluginInit();
+        CheckLangFile();
     }
 }
