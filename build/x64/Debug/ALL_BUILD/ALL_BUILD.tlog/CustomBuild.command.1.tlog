@@ -1,0 +1,10 @@
+^F:\PLUGINS\DEATHMESSAGES\CMAKELISTS.TXT
+setlocal
+"D:\Visual Studio\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/Plugins/DeathMessages -BF:/Plugins/DeathMessages/build --check-stamp-file F:/Plugins/DeathMessages/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

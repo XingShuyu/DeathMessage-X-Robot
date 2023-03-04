@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_BUILD_TYPE Release)
 
 file(GLOB_RECURSE SRC_FILES_DIR
-    ${PROJECT_SOURCE_DIR}/DeathMessages/*.cpp
-    ${PROJECT_SOURCE_DIR}/DeathMessages/*.h
+    ${PROJECT_SOURCE_DIR}/src/*.cpp
+    ${PROJECT_SOURCE_DIR}/src/*.h
 )
 
 include_directories(
