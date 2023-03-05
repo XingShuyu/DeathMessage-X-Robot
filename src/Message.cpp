@@ -10,7 +10,7 @@ std::unordered_set<std::string> MsgType = {
 ActorUniqueID uid = -1;
 
 void deathLog(std::string str) {
-    Logger("Server").info(str);
+    logger.info(str);
 }
 
 void SubscribeDeath() {

@@ -15,16 +15,16 @@ void CheckFile(){
 
 void PluginInit()
 {
-    Logger(PLUGIN_NAME).info("当前版本 {}.{}.{}",PLUGIN_VERSION_MAJOR,PLUGIN_VERSION_MINOR,PLUGIN_VERSION_REVISION);
+    Logger(PLUGIN_NAME).info("当前版本 {}.{}.{}", PLUGIN_VERSION_MAJOR,PLUGIN_VERSION_MINOR,PLUGIN_VERSION_REVISION);
     Logger(PLUGIN_NAME).info("插件作者 Tsubasa6848");
     CheckFile();
     logger.setFile("logs/DeathLog.log",true);
     Event::PlayerJoinEvent::subscribe([](const Event::PlayerJoinEvent& ev) {
-        logger.info("{}",fmt::format(fg(fmt::color::yellow),ev.mPlayer->getName() + "加入了游戏"));
+        Logger("Server").info("{}",fmt::format(fg(fmt::color::yellow),ev.mPlayer->getName() + "加入了游戏"));
         return true;
     });
     Event::PlayerLeftEvent::subscribe([](const Event::PlayerLeftEvent& ev) {
-        logger.info("{}",fmt::format(fg(fmt::color::yellow),ev.mPlayer->getName() + "退出了游戏"));
+        Logger("Server").info("{}",fmt::format(fg(fmt::color::yellow),ev.mPlayer->getName() + "退出了游戏"));
         return true;
     });
     Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent) {
