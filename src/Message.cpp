@@ -156,7 +156,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
     case ActorDamageCause::Void:
         return getMsg("death.attack.outOfWorld.item", name, killer, tryes, weapon);
     case ActorDamageCause::Suicide:
-        return getMsg("death.attack.Suicide", name, killer, tryes, weapon);
+        return getMsg("death.attack.suicide.item", name, killer, tryes, weapon);
     case ActorDamageCause::Projectile:
         if (ads->isEntitySource()) {
             auto pn = ads->getEntity()->getTypeName();

@@ -47,7 +47,7 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
         cp D:/a/DeathMessages/DeathMessages/build/MinSizeRel/*.dll D:/out/plugins
-        cp D:/a/DeathMessages/DeathMessages/DeathMessages/ D:/out/plugins
+        cp D:/a/DeathMessages/DeathMessages/DeathMessages/ -r D:/out/plugins
       shell: bash
 
     - name: Upload plugins
