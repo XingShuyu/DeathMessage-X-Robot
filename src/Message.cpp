@@ -59,7 +59,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
     {
     case ActorDamageCause::All:
         if (killer->getTypeName() == "minecraft:warden") {
-            return getMsg("death.attack.sonicBoom.item", name, nullptr, nullptr, weapon);
+            return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
         }
         return getMsg("death.attack.sonicBoom.item", name, killer, tryes, weapon);
     case ActorDamageCause::Anvil:
@@ -108,7 +108,6 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
                 return getMsg("death.fell.assist.item", name, killer, tryes, weapon);
             }
             if (dmg >= 100) {
-                logger.warn(std::to_string(en->getLastHurtDamage()));
                 return getMsg("death.fell.killer", name, nullptr, nullptr, weapon);
             }
             else {

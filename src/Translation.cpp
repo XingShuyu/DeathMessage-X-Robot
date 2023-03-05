@@ -59,7 +59,6 @@ string getMsg(string reason, string die, Actor* killer, Actor* tryes, string wea
 		}
 	}
 	catch(...) {
-		Logger(PLUGIN_NAME).error("Failed to get the deathmessage of {}",reason);
 		return reason;
 	}
 }
