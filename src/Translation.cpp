@@ -38,7 +38,7 @@ string getMsg(string reason, string die, Actor* killer, Actor* tryes, string wea
 			}
 		}
 		nlohmann::json msgjson;
-		std::ifstream LangFile("plugins/DeathMessages/message.json");
+		std::ifstream LangFile("plugins/DeathMessages/Message.json");
 		if (LangFile) {
 			LangFile >> msgjson;
 			auto dmsg = msgjson[reason].get<string>();

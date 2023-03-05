@@ -7,8 +7,11 @@ void PluginInit();
 Logger logger("Server");
 
 void CheckLangFile(){
-    if(!std::filesystem::exists("plugins/DeathMessages/message.json")){
-        Logger(PLUGIN_NAME).error("语言文件不存在！死亡信息无法显示！");
+    if(!std::filesystem::exists("plugins/DeathMessages/language.json")){
+        std::filesystem::remove("plugins/DeathMessages/language.json");
+    }
+    if(!std::filesystem::exists("plugins/DeathMessages/Message.json")){
+        Logger(PLUGIN_NAME).error("语言文件不存在！死亡信息无法正常显示！");
     }
 }
 
