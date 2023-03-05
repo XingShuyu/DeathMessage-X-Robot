@@ -111,6 +111,9 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         }
         if (orimsg == "death.fell.accident.generic") {
             if (tryes != nullptr) {
+                if (weapon == "") {
+                    return getMsg("death.fell.assist", name, killer, tryes, weapon);
+                }
                 return getMsg("death.fell.assist.item", name, killer, tryes, weapon);
             }
             if (dmg >= 100) {
