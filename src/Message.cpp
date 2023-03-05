@@ -58,8 +58,10 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
     switch (adc)
     {
     case ActorDamageCause::All:
-        if (killer->getTypeName() == "minecraft:warden") {
-            return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
+        if (killer != nullptr) {
+            if (killer->getTypeName() == "minecraft:warden") {
+                return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
+            }
         }
         return getMsg("death.attack.sonicBoom.item", name, killer, tryes, weapon);
     case ActorDamageCause::Anvil:
