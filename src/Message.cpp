@@ -74,8 +74,12 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         return getMsg("death.attack.badRespawnPoint.message", name, killer, tryes, weapon);
     case ActorDamageCause::EntityAttack:
         if (ads->isEntitySource()) {
-            if (ads->getEntity()->getTypeName() == "minecraft:bee") {
-                return getMsg("death.attack.string.item", name, killer, tryes, weapon);
+            auto en = ads->getEntity();
+            if (en->isPlayer()) {
+                return getMsg("death.attack.player.item", name, killer, nullptr, weapon);
+            }
+            if (en->getTypeName() == "minecraft:bee") {
+                return getMsg("death.attack.sting.item", name, killer, tryes, weapon);
             }
             return getMsg("death.attack.mob.item", name, killer, tryes, weapon);
         }
@@ -176,6 +180,6 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
             }
         }
     default:
-        return getMsg("death.attack.generic.item", name, killer, tryes, weapon);
+        return getMsg("death.attack.generic.player", name, killer, tryes, weapon);
     }
 }
