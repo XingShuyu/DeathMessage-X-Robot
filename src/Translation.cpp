@@ -31,7 +31,7 @@ string getMsg(string reason, string die, Actor* killer, Actor* tryes, string wea
 	try {
 		if (weapon == "") {
 			if (tryes == nullptr) {
-				ReplaceStr(reason, ".player", "");
+				ReplaceStr(reason, ".item", "");
 			}
 			else {
 				ReplaceStr(reason, ".item", ".player");

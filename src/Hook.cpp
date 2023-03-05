@@ -4,6 +4,29 @@
 #include <mc/ActorDamageByActorSource.hpp>
 #include <mc/ActorDamageByBlockSource.hpp>
 #include <mc/ActorDamageByChildActorSource.hpp>
+#include <mc/ActorUniqueID.hpp>
+#include <mc/EnderCrystal.hpp>
+#include <ScheduleAPI.h>
+float dmg = -1;
+bool isCrystal = false;
+
+TInstanceHook(bool, "?_hurt@EnderCrystal@@MEAA_NAEBVActorDamageSource@@M_N1@Z", EnderCrystal, ActorDamageSource& a1, float a2, bool a3, bool a4){
+    auto res = original(this, a1, a2, a3, a4);
+    isCrystal = true;
+    Schedule::nextTick([](){
+        isCrystal = false;
+    });
+    return res;
+}
+
+TInstanceHook(bool, "?_hurt@Mob@@MEAA_NAEBVActorDamageSource@@M_N1@Z", Mob, ActorDamageSource& ads, float damage, bool a1, bool a2) {
+    if (isPlayer() || (isTame() && MsgType.count(getTypeName()))) {
+        if (ads.getCause() == ActorDamageCause::Fall) {
+            dmg = damage;
+        }
+    }
+    return original(this, ads, damage, a1, a2);
+}
 
 TInstanceHook(
     DRES, 
@@ -15,6 +38,9 @@ TInstanceHook(
     auto res = original(this, a1, a2);
     auto ads = (ActorDamageSource*)this;
     res.first = getDeathMsg(a1, a2, ads, res.first);
+    deathLog(res.first);
+    dmg = -1;
+    uid = -1;
     return res;
 }
 
@@ -28,6 +54,9 @@ TInstanceHook(
     auto res = original(this, a1, a2);
     auto ads = (ActorDamageSource*)this;
     res.first = getDeathMsg(a1, a2, ads, res.first);
+    deathLog(res.first);
+    dmg = -1;
+    uid = -1;
     return res;
 }
 
@@ -41,6 +70,9 @@ TInstanceHook(
     auto res = original(this, a1, a2);
     auto ads = (ActorDamageSource*)this;
     res.first = getDeathMsg(a1, a2, ads, res.first);
+    deathLog(res.first);
+    dmg = -1;
+    uid = -1;
     return res;
 }
 
@@ -54,5 +86,8 @@ TInstanceHook(
     auto res = original(this, a1, a2);
     auto ads = (ActorDamageSource*)this;
     res.first = getDeathMsg(a1, a2, ads, res.first);
+    deathLog(res.first);
+    dmg = -1;
+    uid = -1;
     return res;
 }

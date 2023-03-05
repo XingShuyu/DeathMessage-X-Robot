@@ -31,4 +31,5 @@ void PluginInit()
         Global<Level>->runcmdEx("gamerule showdeathmessages true");
         return true;
     });
+    SubscribeDeath();
 }

@@ -1,7 +1,30 @@
 #include "Global.h"
+#include <mc/ActorUniqueID.hpp>
 
-std::string deathLog(std::string str) {
+std::unordered_set<std::string> MsgType = {
+    "minecraft:cat",
+    "minecraft:wolf",
+    "minecraft:parrot"
+};
+
+ActorUniqueID uid = -1;
+
+void deathLog(std::string str) {
     Logger("Server").info(str);
+}
+
+void SubscribeDeath() {
+    Event::MobDieEvent::subscribe([](const Event::MobDieEvent& ev) {
+        auto en = ev.mMob;
+        auto ads = ev.mDamageSource;
+        if (en->isPlayer() || (en->isTame() && MsgType.count(en->getTypeName()))) {
+            if (en->getLastHurtByMobTime() != 0) {
+                auto hm = en->getLastHurtByMob();
+                uid = hm->getActorUniqueId();
+            }
+        }
+        return true;
+    });
 }
 
 std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std::string orimsg) {
@@ -18,8 +41,8 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         }
     }
     Actor* tryes = nullptr;
-    if (killer == nullptr && en->getLastHurtByMobTime() != 0) {
-        tryes = en->getLastHurtByMob();
+    if (killer == nullptr && uid != -1) {
+        tryes = Global<Level>->getEntity(uid);
     }
     std::string weapon = "";
     if (killer != nullptr){
@@ -28,7 +51,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
     else if(tryes != nullptr) {
         weapon = tryes->getHandSlot()->getCustomName();
     }
-    if (!orimsg.starts_with("death.attack.") || !orimsg.starts_with("death.fell.")) {
+    if (!orimsg.starts_with("death.attack.") && !orimsg.starts_with("death.fell.")) {
         return orimsg;
     }
     auto adc = ads->getCause();
@@ -43,7 +66,10 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         return getMsg("death.attack.anvil.item", name, killer, tryes, weapon);
     case ActorDamageCause::BlockExplosion:
         if (tryes != nullptr) {
-            return getMsg("death.attack.explosion.item", name, killer, tryes, weapon);
+            return getMsg("death.attack.explosion.player", name, killer, tryes, weapon);
+        }
+        if (isCrystal) {
+            return getMsg("death.attack.explosion", name, killer, tryes, weapon);
         }
         return getMsg("death.attack.badRespawnPoint.message", name, killer, tryes, weapon);
     case ActorDamageCause::EntityAttack:
@@ -58,7 +84,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
             if (ads->getEntity()->getTypeName() == "minecraft:wither_skull" || ads->getEntity()->getTypeName() == "minecraft:wither_skull_dangerous") {
                 return getMsg("death.attack.witherSkull.item", name, killer, tryes, weapon);
             }
-            return getMsg("death.attack.explosion.item", name, killer, tryes, weapon);
+            return getMsg("death.attack.explosion.player", name, killer, tryes, weapon);
         }
         return getMsg("death.attack.explosion", name, killer, tryes, weapon);
     case ActorDamageCause::Contact:
@@ -77,14 +103,15 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         if (orimsg == "death.attack.fall") {
             return getMsg("death.attack.fall.item", name, killer, tryes, weapon);
         }
-        else if (orimsg == "death.fell.accident.generic") {
+        if (orimsg == "death.fell.accident.generic") {
             if (tryes != nullptr) {
                 return getMsg("death.fell.assist.item", name, killer, tryes, weapon);
             }
-            if (en->getLastHurtDamage() >= 20) {    //注定要摔死
+            if (dmg >= 100) {
+                logger.warn(std::to_string(en->getLastHurtDamage()));
                 return getMsg("death.fell.killer", name, nullptr, nullptr, weapon);
             }
-            else {      //从高处摔了下来
+            else {
                 return getMsg("death.fell.accident.generic", name, nullptr, nullptr, weapon);
             }
         }
