@@ -1,30 +1,8 @@
 #include "Global.h"
 #include <mc/ActorUniqueID.hpp>
 
-std::unordered_set<std::string> MsgType = {
-    "minecraft:cat",
-    "minecraft:wolf",
-    "minecraft:parrot"
-};
-
-ActorUniqueID uid = -1;
-
 void deathLog(std::string str) {
     logger.info(str);
-}
-
-void SubscribeDeath() {
-    Event::MobDieEvent::subscribe([](const Event::MobDieEvent& ev) {
-        auto en = ev.mMob;
-        auto ads = ev.mDamageSource;
-        if (en->isPlayer() || (en->isTame() && MsgType.count(en->getTypeName()))) {
-            if (en->getLastHurtByMobTime() != 0) {
-                auto hm = en->getLastHurtByMob();
-                uid = hm->getActorUniqueId();
-            }
-        }
-        return true;
-    });
 }
 
 std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std::string orimsg) {
@@ -116,7 +94,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
                 }
                 return getMsg("death.fell.assist.item", name, killer, tryes, weapon);
             }
-            if (dmg >= 100) {
+            if (fallHeight >= 100) {
                 return getMsg("death.fell.killer", name, nullptr, nullptr, weapon);
             }
             else {

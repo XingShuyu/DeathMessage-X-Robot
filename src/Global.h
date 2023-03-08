@@ -26,7 +26,6 @@ extern string getMsg(string reason, string die, Actor* killer, Actor* tryes, str
 extern string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std::string orimsg);
 extern void deathLog(std::string str);
 extern ActorUniqueID uid;
-extern float dmg;
+extern float fallHeight;
 extern std::unordered_set<std::string> MsgType;
-extern void SubscribeDeath();
 extern bool isCrystal;
