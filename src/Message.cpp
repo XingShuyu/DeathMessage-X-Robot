@@ -63,6 +63,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
             }
             return getMsg("death.attack.mob.item", name, killer, tryes, weapon);
         }
+        return getMsg("death.attack.generic.item", name, killer, tryes, "");
     case ActorDamageCause::EntityExplosion:
         if (ads->isEntitySource()) {
             if (ads->getEntity()->getTypeName() == "minecraft:wither_skull" || ads->getEntity()->getTypeName() == "minecraft:wither_skull_dangerous") {
@@ -78,6 +79,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         else if (orimsg == "death.attack.sweetBerry") {
             return getMsg("death.attack.sweetBerry.item", name, killer, tryes, weapon);
         }
+        return getMsg("death.attack.generic.item", name, killer, tryes, "");
     case ActorDamageCause::Drowning:
         return getMsg("death.attack.drown.item", name, killer, tryes, weapon);
     case ActorDamageCause::Fall:
@@ -101,6 +103,7 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
                 return getMsg("death.fell.accident.generic", name, nullptr, nullptr, weapon);
             }
         }
+        return getMsg("death.attack.generic.item", name, killer, tryes, "");
     case ActorDamageCause::FallingBlock:
         return getMsg("death.attack.fallingBlock.item", name, killer, tryes, weapon);
     case ActorDamageCause::Fire:
@@ -162,7 +165,8 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
                 return getMsg("death.attack.thrown.item", name, killer, nullptr, weapon);
             }
         }
+        return getMsg("death.attack.generic.item", name, killer, tryes, "");
     default:
-        return getMsg("death.attack.generic.player", name, killer, tryes, weapon);
+        return getMsg("death.attack.generic.item", name, killer, tryes, "");
     }
 }
