@@ -1,7 +1,19 @@
 #include "Global.h"
 #include <mc/ActorUniqueID.hpp>
+#include <RemoteCallAPI.h>
+auto sendGroupMessage = RemoteCall::importAs<void(std::string Str)>("SparkAPI", "sendGroupMessage");
+
+void SendGroupMsg(string msg) {
+    if (RemoteCall::hasFunc("SparkAPI", "sendGroupMessage")) {
+        return sendGroupMessage(msg);
+    }
+}
 
 void deathLog(std::string str) {
+    while (str.find("§") != std::string::npos) {
+        str = str.replace(str.find("§"), 3, "");
+    }
+    SendGroupMsg(str);
     logger.info(str);
 }
 
@@ -138,6 +150,9 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
     case ActorDamageCause::Suffocation:
         return getMsg("death.attack.inWall.item", name, killer, tryes, weapon);
     case ActorDamageCause::Thorns:
+        if (killer == nullptr && tryes == nullptr) {
+            return getMsg("death.attack.generic", name, killer, tryes, "");
+        }
         return getMsg("death.attack.thorns.item", name, killer, tryes, weapon);
     case ActorDamageCause::Void:
         return getMsg("death.attack.outOfWorld.item", name, killer, tryes, weapon);

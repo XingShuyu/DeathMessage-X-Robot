@@ -11,14 +11,9 @@
 float fallHeight = -1;
 bool isCrystal = false;
 ActorUniqueID uid = -1;
-std::unordered_set<std::string> MsgType = {
-    "minecraft:cat",
-    "minecraft:wolf",
-    "minecraft:parrot"
-};
 
 TInstanceHook(bool, "?die@Mob@@UEAAXAEBVActorDamageSource@@@Z", Mob, ActorDamageSource* ads) {
-    if (isPlayer() || (isTame() && MsgType.count(getTypeName()))) {
+    if (isPlayer() || isTame()) {
         if (getLastHurtByMobTime() != 0) {
             auto hm = getLastHurtByMob();
             uid = hm->getActorUniqueId();

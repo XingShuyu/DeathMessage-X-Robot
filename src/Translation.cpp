@@ -18,11 +18,14 @@ string getLanguage(Actor* en){
 	}
 }
 
-string Trans(Actor* en){
-    if(en->getNameTag() != ""){
-        return CommandUtils::getActorName(*en);
+string Trans(Actor* en) {
+	if (en->isPlayer()) {
+		return ((Player*)en)->getRealName();
+	}
+    if (en->getNameTag() != "") {
+        return CommandUtils::getActorName(*en) + "§r";
     }
-    else{
+    else {
         return getLanguage(en);
     }
 }
@@ -50,7 +53,8 @@ string getMsg(string reason, string die, Actor* killer, Actor* tryes, string wea
 				ReplaceStr(dmsg, "%2$s", Trans(killer));
 			}
 			if (weapon != "") {
-				ReplaceStr(dmsg, "%3$s", weapon);
+				string weaponname ="[" + weapon + "§r]";
+				ReplaceStr(dmsg, "%3$s", weaponname);
 			}
 			return dmsg;
 		}

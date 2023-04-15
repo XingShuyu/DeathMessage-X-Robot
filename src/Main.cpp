@@ -2,8 +2,6 @@
 #include "version.h"
 #include "Global.h"
 
-extern void DeathMessages();
-
 void CheckFile(){
     if(!std::filesystem::exists("plugins/DeathMessages/Translation.json")){
         Logger(PLUGIN_NAME).warn("翻译文件不存在，请在server.properties添加一行'language=zh_CN'，否则未命名的生物名字会以游戏内名称显示（默认英语）！！");

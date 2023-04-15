@@ -4,7 +4,7 @@
 
 void PluginInit();
 
-Logger logger("Server");
+Logger logger("Death");
 
 void CheckLangFile(){
     if(!std::filesystem::exists("plugins/DeathMessages/language.json")){
