@@ -47,13 +47,6 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
     auto adc = ads->getCause();
     switch (adc)
     {
-    case ActorDamageCause::All:
-        if (killer != nullptr) {
-            if (killer->getTypeName() == "minecraft:warden") {
-                return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
-            }
-        }
-        return getMsg("death.attack.sonicBoom.item", name, killer, tryes, weapon);
     case ActorDamageCause::Anvil:
         return getMsg("death.attack.anvil.item", name, killer, tryes, weapon);
     case ActorDamageCause::BlockExplosion:
@@ -149,9 +142,19 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         return getMsg("death.attack.starve.item", name, killer, tryes, weapon);
     case ActorDamageCause::Suffocation:
         return getMsg("death.attack.inWall.item", name, killer, tryes, weapon);
+    case ActorDamageCause::SonicBoom:
+        if (killer != nullptr) {
+            if (killer->getTypeName() == "minecraft:warden") {
+                return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
+            }
+        }
+        return getMsg("death.attack.sonicBoom.item", name, killer, tryes, weapon);
     case ActorDamageCause::Thorns:
         if (killer == nullptr && tryes == nullptr) {
             return getMsg("death.attack.generic", name, killer, tryes, "");
+        }
+        if (weapon == "") {
+            return getMsg("death.attack.thorns", name, killer, tryes, "");
         }
         return getMsg("death.attack.thorns.item", name, killer, tryes, weapon);
     case ActorDamageCause::Void:
