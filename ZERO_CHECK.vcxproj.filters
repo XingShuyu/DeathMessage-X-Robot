@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ning1\Desktop\plugins\X-Robot_WebSocket\DeathMessages\CMakeFiles\bc0879b8a8526cff96fdcec32c498e20\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{84F6FAD5-0D5F-35FB-8F65-EC7191611D84}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

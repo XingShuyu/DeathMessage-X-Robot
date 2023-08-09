@@ -1,0 +1,10 @@
+^C:\USERS\NING1\DESKTOP\PLUGINS\X-ROBOT_WEBSOCKET\DEATHMESSAGES\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/DeathMessages -BC:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/DeathMessages --check-stamp-file C:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/DeathMessages/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

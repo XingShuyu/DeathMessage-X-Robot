@@ -1,12 +1,14 @@
 #include "Global.h"
 #include <mc/ActorUniqueID.hpp>
 #include <RemoteCallAPI.h>
-auto sendGroupMessage = RemoteCall::importAs<void(std::string Str)>("SparkAPI", "sendGroupMessage");
+#include <DLLShare/DLL.h>
+DLL_API msgAPI;
+msgAPI obj;
+
+//auto sendGroupMessage = RemoteCall::importAs<void(std::string Str)>("SparkAPI", "sendGroupMessage");
 
 void SendGroupMsg(string msg) {
-    if (RemoteCall::hasFunc("SparkAPI", "sendGroupMessage")) {
-        return sendGroupMessage(msg);
-    }
+    obj.groupMsg("722047078", msg);
 }
 
 void deathLog(std::string str) {
@@ -65,6 +67,9 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
             }
             if (en->getTypeName() == "minecraft:bee") {
                 return getMsg("death.attack.sting.item", name, killer, tryes, weapon);
+            }
+            if (killer->getTypeName() == "minecraft:warden") {
+                return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
             }
             return getMsg("death.attack.mob.item", name, killer, tryes, weapon);
         }
@@ -142,13 +147,13 @@ std::string getDeathMsg(std::string name, Actor* en, ActorDamageSource* ads, std
         return getMsg("death.attack.starve.item", name, killer, tryes, weapon);
     case ActorDamageCause::Suffocation:
         return getMsg("death.attack.inWall.item", name, killer, tryes, weapon);
-    case ActorDamageCause::SonicBoom:
+    /*case ActorDamageCause::SonicBoom:
         if (killer != nullptr) {
             if (killer->getTypeName() == "minecraft:warden") {
                 return getMsg("death.attack.sonicBoom", name, nullptr, nullptr, weapon);
             }
         }
-        return getMsg("death.attack.sonicBoom.item", name, killer, tryes, weapon);
+        return getMsg("death.attack.sonicBoom.item", name, killer, tryes, weapon);*/
     case ActorDamageCause::Thorns:
         if (killer == nullptr && tryes == nullptr) {
             return getMsg("death.attack.generic", name, killer, tryes, "");
