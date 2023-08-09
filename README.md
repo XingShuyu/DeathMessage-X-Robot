@@ -3,4 +3,6 @@ Java Death Messages on Bedrock
 
 # License
 采用GPL3.0开源许可证
-你可以修改源代码，但你修改后的源代码必须遵循GPL3.0开源协议进行开源。
+代码原作者：[Tsubasa6848](https://github.com/Tsubasa6848)
+代码原仓库：[DeathMessage](https://github.com/Tsubasa6848/DeathMessages)
+更改：Message.cpp 5-7行 删除sparkAPI，添加x-robotAPI
