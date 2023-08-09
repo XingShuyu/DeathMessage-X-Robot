@@ -28,6 +28,7 @@ jobs:
     - name: Build Library
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
+        update_sdk.cmd
         cd SDK/Tools
         LibraryBuilder.exe -o ..\Lib D:\BDS 
       shell: cmd
