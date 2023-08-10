@@ -1,6 +1,7 @@
 #include <LoggerAPI.h>
 #include "version.h"
 #include "Global.h"
+HMODULE hDll = LoadLibraryEx(L"./plugins/X-Robot.dll", NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
 
 void CheckFile(){
     if(!std::filesystem::exists("plugins/DeathMessages/Translation.json")){

@@ -85,8 +85,8 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)websocketpp;</IncludePath>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)websocketpp;</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -159,7 +159,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\ning1\Desktop\plugins\X-Robot_WebSocket\SDK\include;C:\Users\ning1\Desktop\plugins\X-Robot_WebSocket\SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SDK\include;$(SolutionDir)SDK\include\llapi;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ConformanceMode>true</ConformanceMode>
@@ -199,18 +199,18 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       </Command>
     </PreBuildEvent>
     <Link>
-      <AdditionalDependencies>..\SDK\lib\LiteLoader.lib;..\SDK\lib\bedrock_server_api.lib;..\SDK\lib\bedrock_server_var.lib;..\SDK\lib\SymDBHelper.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\x64\Release\X-Robot.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/SDK/lib;C:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/SDK/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\SDK\lib\LiteLoader.lib;..\SDK\lib\bedrock_server_api.lib;..\SDK\lib\bedrock_server_var.lib;..\SDK\lib\SymDBHelper.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;.\X-Robot.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDK/lib;$(SolutionDir)SDK/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64 /IGNORE:4199 /LTCG:INCREMENTAL</AdditionalOptions>
       <DelayLoadDLLs>"bedrock_server.dll"</DelayLoadDLLs>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <EnableUAC>false</EnableUAC>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>C:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/DeathMessages/Release/DeathMessages.lib</ImportLibrary>
+      <ImportLibrary>$(SolutionDir)Release/DeathMessages.lib</ImportLibrary>
       <LinkDLL>true</LinkDLL>
       <OptimizeReferences>true</OptimizeReferences>
-      <ProgramDataBaseFile>C:/Users/ning1/Desktop/plugins/X-Robot_WebSocket/DeathMessages/Release/DeathMessages.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>$(SolutionDir)Release/DeathMessages.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetMachine>MachineX64</TargetMachine>

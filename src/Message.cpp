@@ -1,14 +1,21 @@
 #include "Global.h"
 #include <mc/ActorUniqueID.hpp>
 #include <RemoteCallAPI.h>
-#include <DLLShare/DLL.h>
+#include "DLL.h"
+#include <Windows.h>
+
+
 DLL_API msgAPI;
 msgAPI obj;
+
 
 //auto sendGroupMessage = RemoteCall::importAs<void(std::string Str)>("SparkAPI", "sendGroupMessage");
 
 void SendGroupMsg(string msg) {
-    obj.groupMsg("722047078", msg);
+    INT64 groupidint = info["QQ_group_id"];
+    string groupid = to_string(groupidint);
+    cout << groupid << endl;
+    obj.groupMsg(groupid, msg);
 }
 
 void deathLog(std::string str) {
